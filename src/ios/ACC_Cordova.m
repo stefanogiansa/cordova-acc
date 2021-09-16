@@ -34,15 +34,14 @@
 
 - (void) registerDevice:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
-        String deviceToken = [[self getCommandArg:command.arguments[0]] stringValue];
-        String userKey = [[self getCommandArg:command.arguments[1]] stringValue];
+        NSData *deviceToken=[[[self getCommandArg:command.arguments[0]] stringValue] dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *userKey = [[self getCommandArg:command.arguments[1]] stringValue];
 
-        [ACPCampaignClassic registerDevice:deviceToken userKey:userKey callback:^(BOOL success) {
+        [ACPCampaignClassic registerDevice:deviceToken userKey:userKey additionalParams:NULL callback:^(BOOL success) {
             NSLog(@"Registration Status: %d", success);
-        }
-
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
     }];
 }
 

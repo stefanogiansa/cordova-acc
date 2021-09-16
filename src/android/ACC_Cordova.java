@@ -11,15 +11,12 @@
  */
 
 package com.adobe.marketing.mobile.cordova;
-
+import android.os.Bundle;
+import android.util.Log;
 import com.adobe.marketing.mobile.AdobeCallback;
 import com.adobe.marketing.mobile.Event;
-import com.adobe.marketing.mobile.Event.Builder;
-import com.adobe.marketing.mobile.ExtensionError;
-import com.adobe.marketing.mobile.ExtensionErrorCallback;
 import com.adobe.marketing.mobile.LoggingMode;
 import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.MobilePrivacyStatus;
 import com.adobe.marketing.mobile.CampaignClassic;
 import com.adobe.marketing.mobile.Lifecycle;
 import org.apache.cordova.CallbackContext;
@@ -31,10 +28,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class ACC_Cordova extends CordovaPlugin {
-	final static String METHOD_ACC_EXTENSION_VERSION = "extensionVersion";
-    
+    final static String METHOD_ACC_EXTENSION_VERSION = "extensionVersion";
+    final static String METHOD_ACC_REGISTER_DEVICE = "registerDevice";
+    final static String METHOD_ACC_TRACK_NOTIFICATION_RECEIVE = "trackNotificationReceive";
+    final static String METHOD_ACC_TRACK_NOTIFICATION_CLICK = "trackNotificationClick";
+
     // ===============================================================
     // all calls filter through this method
     // ===============================================================
@@ -43,12 +44,15 @@ public class ACC_Cordova extends CordovaPlugin {
         if (METHOD_ACC_EXTENSION_VERSION.equals(action)) {
              this.extensionVersion(callbackContext);
              return true;
-        } else if (METHOD_CORE_SET_ADVERTISING_IDENTIFIER.equals(action)) {
-             this.setAdvertisingIdentifier(args, callbackContext);
+        } else if (METHOD_ACC_REGISTER_DEVICE.equals(action)) {
+             this.registerDevice(args, callbackContext);
              return true;
-        } else if (METHOD_CORE_TRACK_ACTION.equals(action)) {
-             this.trackAction(args, callbackContext);
+        } else if (METHOD_ACC_TRACK_NOTIFICATION_RECEIVE.equals(action)) {
+             this.trackNotificationReceive(args, callbackContext);
              return true;
+        } else if (METHOD_ACC_TRACK_NOTIFICATION_CLICK.equals(action)) {
+            this.trackNotificationClick(args, callbackContext);
+            return true;
         }
 
         return false;
@@ -74,10 +78,11 @@ public class ACC_Cordova extends CordovaPlugin {
                 try {
                     final String token = args.getString(0);
                     final String userKey = args.getString(0);
-                    CampaignClassic.registerDevice(token, userKey,new AdobeCallback<Boolean>() {
+
+                    CampaignClassic.registerDevice(token, userKey, null,new AdobeCallback<Boolean>() {
                         @Override
                         public void call(final Boolean status) {
-                            Log.d("OasiTigre", "Registration Status: " + status);
+                            Log.d("TestApp", "Registration Status: " + status);
                             callbackContext.success();
                         }
                     });
@@ -89,7 +94,7 @@ public class ACC_Cordova extends CordovaPlugin {
             }
         });
     }
-    
+
     private void trackNotificationReceive(final JSONArray args, final CallbackContext callbackContext) {
         cordova.getThreadPool().execute(new Runnable() {
             @Override
@@ -123,8 +128,11 @@ public class ACC_Cordova extends CordovaPlugin {
                     final HashMap<String, String> contextData = getStringMapFromJSON(args.getJSONObject(0));
 
                     Map<String,String> trackInfo = new HashMap<>();
+                    /*Bundle extras = getIntent().getExtras();
+                    String deliveryId = extras.getString("_dId");
+                    String messageId = extras.getString("_mId");
                     trackInfo.put("_mId", messageId);
-                    trackInfo.put("_dId", deliveryId);
+                    trackInfo.put("_dId", deliveryId);*/
 
                     // Send the tracking information for message opening
                     CampaignClassic.trackNotificationClick(trackInfo);
