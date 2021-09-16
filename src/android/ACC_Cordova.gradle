@@ -1,6 +1,6 @@
 dependencies {
     // adobe
-    implementation 'com.adobe.marketing.mobile:campaignclassic:1.+'
-    implementation 'com.adobe.marketing.mobile:userprofile:1.+'
-    implementation 'com.adobe.marketing.mobile:sdk-core:1.+'
+    implementation "com.adobe.marketing.mobile:campaignclassic:1.0.1"
+    implementation "com.adobe.marketing.mobile:userprofile:1.1.0"
+    implementation "com.adobe.marketing.mobile:sdk-core:1.9.0"
 }
