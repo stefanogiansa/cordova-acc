@@ -1,0 +1,26 @@
+{
+  "name": "@konvergence/cordova-k-acc",
+  "version": "0.0.1",
+  "description": "Plugin integrazione ACC",
+  "cordova": {
+    "id": "cordova-k-acc",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stefanogiansa/cordova-acc"
+  },
+  "keywords": [
+    "cordova",
+    "core",
+    "acc",
+    "marketing",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "stefanogiansa"
+}
