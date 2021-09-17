@@ -17,6 +17,8 @@
         <config-file parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service 
                 android:name="com.konvergence.acc.cordova.plugin.KFirebaseMessagingService"
                 android:stopWithTask="false">
@@ -25,30 +27,31 @@
                 </intent-filter>
             </service>
         </config-file>
+
         <!-- plugin source -->
         <source-file src="src/android/ACC_Cordova.java"
             target-dir="src/com/adobe/marketing/mobile/cordova" />
-        <!-- dependencies managed through included gradle file -->
-        <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
-    </platform>
+            <!-- dependencies managed through included gradle file -->
+            <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
+        </platform>
 
-    <!-- configure ios platform -->
-    <platform name="ios">
-        <!-- plugin source -->
-        <source-file src="src/ios/ACC_Cordova.m" />
-        <!-- dependencies -->
-        <framework src="libsqlite3.dylib" />
-        <framework src="SystemConfiguration.framework" />
-        <!-- sdk source for ios managed by cocoapods -->
-        <podspec>
-            <config>
-                <source url="https://github.com/CocoaPods/Specs.git" />
-            </config>
-            <pods use-frameworks="true">
-                <pod name="ACPCampaignClassic" spec=">= 2.0" />
-                <pod name="ACPUserProfile" spec=">= 2.0" />
-                <pod name="ACPCore" spec=">= 2.0" />
-            </pods>
-        </podspec>
-    </platform>
-</plugin>
+        <!-- configure ios platform -->
+        <platform name="ios">
+            <!-- plugin source -->
+            <source-file src="src/ios/ACC_Cordova.m" />
+            <!-- dependencies -->
+            <framework src="libsqlite3.dylib" />
+            <framework src="SystemConfiguration.framework" />
+            <!-- sdk source for ios managed by cocoapods -->
+            <podspec>
+                <config>
+                    <source url="https://github.com/CocoaPods/Specs.git" />
+                </config>
+                <pods use-frameworks="true">
+                    <pod name="ACPCampaignClassic" spec=">= 2.0" />
+                    <pod name="ACPUserProfile" spec=">= 2.0" />
+                    <pod name="ACPCore" spec=">= 2.0" />
+                </pods>
+            </podspec>
+        </platform>
+    </plugin>
