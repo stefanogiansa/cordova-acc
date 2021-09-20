@@ -13,7 +13,14 @@
     </js-module>
     <!-- configure android platform -->
     <platform name="android">
-        <!-- add required permissions to AndroidManifest.xml -->
+        <!-- plugin source -->
+        <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/k/acc" />
+        <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/k/acc" />
+        <source-file src="src/android/ACC_Initialize.java" target-dir="src/com/k/acc" />
+
+        <config-file file="AndroidManifest.xml" parent="/manifest/application">
+            <application android:name="com.konvergence.acc.cordova.ACC_Initialize" />
+        </config-file>
         <config-file parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,14 +34,7 @@
                 </intent-filter>
             </service>
         </config-file>
-        <config-file file="AndroidManifest.xml" target="/manifest/application" mode="merge">
-            <application android:name="com.konvergence.acc.cordova.ACC_Initialize" />
-        </config-file>
-
-        <!-- plugin source -->
-        <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/k/acc" />
-        <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/k/acc" />
-        <source-file src="src/android/ACC_Initialize.java" target-dir="src/com/k/acc" />
+        
         <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
         </platform>
 
