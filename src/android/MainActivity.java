@@ -1,7 +1,7 @@
 package com.oasitigre.kwallet;
 
 import android.os.Bundle;
-import android.webkit.WebView;
+import android.util.Log;
 import org.apache.cordova.*;
 
 import com.adobe.marketing.mobile.AdobeCallback;
@@ -27,7 +27,7 @@ public class MainActivity extends CordovaActivity
             moveTaskToBack(true);
         }
 
-        MobileCore.setApplication(this);
+        MobileCore.setApplication(getApplication());
         MobileCore.setLogLevel(LoggingMode.DEBUG);
 
         try {

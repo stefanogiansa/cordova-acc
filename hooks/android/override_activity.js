@@ -28,7 +28,7 @@ module.exports = function (context) {
                 deferral.reject("Failed to parse config.xml: " + err);
             }
             packageName = result.widget.$.id;
-            activityTargetPath = path.join(platformRoot, 'src', packageName.replace(/\./g,'/'), 'MainActivity.java');
+            activityTargetPath = path.join(platformRoot, 'app/src/main/java/', packageName.replace(/\./g,'/'), 'MainActivity.java');
             
             fs.readFile(activitySourcePath, function(err, activitySrc) {
                 if (err) {
