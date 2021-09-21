@@ -32,12 +32,11 @@
    <platform name="ios">
       <!-- plugin source -->
       <source-file src="src/ios/ACC_Cordova.m" />
+      <header-file src="src/ios/ACC_CordovaAppDelegate.h" />
       <header-file src="src/ios/AppDelegate+ACC_Cordova.h" /> 
       <source-file src="src/ios/AppDelegate+ACC_Cordova.m" />
       <header-file src="src/ios/CDVPlugin+ACC_Cordova.h" />
       <source-file src="src/ios/CDVPlugin+ACC_Cordova.m" />
-
-        <header-file src="src/ios/APPAppEventDelegate.h" />
       <!-- dependencies -->
       <framework src="libsqlite3.dylib" />
       <framework src="SystemConfiguration.framework" />
