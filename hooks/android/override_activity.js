@@ -6,7 +6,7 @@ var fs = require('fs'),
     parser = new xml2js.Parser();
 
 module.exports = function (context) {
-    var deferral = context.requireCordovaModule('q').defer();
+    var deferral = context.require('q').defer();
 
     var PACKAGE_NAME_PLACEHOLDER = "<%PACKAGE_NAME%>";
 
