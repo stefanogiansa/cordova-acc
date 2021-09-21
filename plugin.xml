@@ -11,9 +11,9 @@
    <!-- configure android platform -->
    <platform name="android">
       <!-- plugin source -->
-      <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/k/acc" />
-      <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/k/acc" />
-      <source-file src="src/android/ACC_Initialize.java" target-dir="src/com/k/acc" />
+      <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
+      <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
+      <source-file src="src/android/ACC_Initialize.java" target-dir="src/com/konvergence.acc.cordova" />
       <config-file target="config.xml" parent="/*">
          <feature name="ACC_Initialize">
             <param name="android-package" value="com.konvergence.acc.cordova.ACC_Initialize" />
