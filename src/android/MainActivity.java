@@ -1,24 +1,23 @@
-package com.konvergence.acc.cordova;
+package <%PACKAGE_NAME%>;
 
-import android.app.Application;
-import android.util.Log;
+import android.os.Bundle;
+import android.webkit.WebView;
+import org.apache.cordova.*;
 
-import com.adobe.marketing.mobile.AdobeCallback;
-import com.adobe.marketing.mobile.CampaignClassic;
-import com.adobe.marketing.mobile.Identity;
-import com.adobe.marketing.mobile.InvalidInitException;
-import com.adobe.marketing.mobile.Lifecycle;
-import com.adobe.marketing.mobile.LoggingMode;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Signal;
-import com.adobe.marketing.mobile.UserProfile;
-
-public class ACC_Initialize extends Application {
-
+public class MainActivity extends CordovaActivity
+{
+    private PopupBridge mPopupBridge;
     @Override
-    public void onCreate() {
-        super.onCreate();
-        
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        // enable Cordova apps to be started in the background
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
+            moveTaskToBack(true);
+        }
+
         MobileCore.setApplication(this);
         MobileCore.setLogLevel(LoggingMode.DEBUG);
 
@@ -37,5 +36,8 @@ public class ACC_Initialize extends Application {
         } catch (Exception e) {
             Log.e("CampaignClassicTestApp", e.getMessage());
         }
+
+        // Set by <content src="index.html" /> in config.xml
+        loadUrl(launchUrl);
     }
 }

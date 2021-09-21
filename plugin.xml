@@ -11,14 +11,10 @@
    <!-- configure android platform -->
    <platform name="android">
       <!-- plugin source -->
+      <hook type="after_prepare" src="hooks/android/override_activity.js" />
+
       <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
       <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
-      <source-file src="src/android/ACC_Initialize.java" target-dir="src/com/konvergence.acc.cordova" />
-      <config-file target="config.xml" parent="/*">
-         <feature name="ACC_Initialize">
-            <param name="android-package" value="com.konvergence.acc.cordova.ACC_Initialize" />
-         </feature>
-      </config-file>
       <config-file parent="/manifest" target="AndroidManifest.xml">
          <uses-permission android:name="android.permission.INTERNET" />
          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -36,6 +32,12 @@
    <platform name="ios">
       <!-- plugin source -->
       <source-file src="src/ios/ACC_Cordova.m" />
+      <header-file src="src/ios/AppDelegate+ACC_Cordova.h" /> 
+      <source-file src="src/ios/AppDelegate+ACC_Cordova.m" />
+      <header-file src="src/ios/CDVPlugin+ACC_Cordova.h" />
+      <source-file src="src/ios/CDVPlugin+ACC_Cordova.m" />
+
+        <header-file src="src/ios/APPAppEventDelegate.h" />
       <!-- dependencies -->
       <framework src="libsqlite3.dylib" />
       <framework src="SystemConfiguration.framework" />

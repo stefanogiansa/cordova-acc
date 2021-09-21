@@ -15,8 +15,9 @@
 #import "ACPLifecycle.h"
 #import <Cordova/CDV.h>
 #import <Foundation/Foundation.h>
+#import "ACC_CordovaAppDelegate.h"
 
-@interface ACPCore_Cordova : CDVPlugin
+@interface ACPCore_Cordova : CDVPlugin <ACC_CordovaAppDelegate>
 - (void) extensionVersion:(CDVInvokedUrlCommand*)command;
 - (void) registerDevice:(CDVInvokedUrlCommand*)command;
 @end
@@ -47,6 +48,12 @@
 
 - (id) getCommandArg:(id) argument {
     return argument == (id)[NSNull null] ? nil : argument;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [ACPCampaignClassic registerExtension];
+    [ACPLifecycle registerExtension];
+    return YES;
 }
 
 @end
