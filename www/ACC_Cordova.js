@@ -11,7 +11,7 @@
 */
 
 var ACC_Cordova = (function() {
-    var ACC_Cordovae = (typeof exports !== 'undefined') && exports || {};
+    var ACC_Cordova = (typeof exports !== 'undefined') && exports || {};
     var exec = cordova.require('cordova/exec'); // eslint-disable-line no-undef
 
     var PLUGIN_NAME = "ACC_Cordova";
