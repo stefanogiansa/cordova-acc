@@ -8,7 +8,7 @@ var fs = require('fs'),
 module.exports = function (context) {
     var deferral = require('q').defer();
 
-    var PACKAGE_NAME_PLACEHOLDER = "<%PACKAGE_NAME%>";
+    var PACKAGE_NAME_PLACEHOLDER = "com.oasitigre.kwallet";
 
     var packageName, activityTargetPath;
 

@@ -1,12 +1,21 @@
-package <%PACKAGE_NAME%>;
+package com.oasitigre.kwallet;
 
 import android.os.Bundle;
 import android.webkit.WebView;
 import org.apache.cordova.*;
 
+import com.adobe.marketing.mobile.AdobeCallback;
+import com.adobe.marketing.mobile.CampaignClassic;
+import com.adobe.marketing.mobile.Identity;
+import com.adobe.marketing.mobile.InvalidInitException;
+import com.adobe.marketing.mobile.Lifecycle;
+import com.adobe.marketing.mobile.LoggingMode;
+import com.adobe.marketing.mobile.MobileCore;
+import com.adobe.marketing.mobile.Signal;
+import com.adobe.marketing.mobile.UserProfile;
+
 public class MainActivity extends CordovaActivity
 {
-    private PopupBridge mPopupBridge;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
