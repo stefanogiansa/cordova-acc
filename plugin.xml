@@ -11,7 +11,8 @@
    <!-- configure android platform -->
    <platform name="android">
       <!-- plugin source -->
-      <source-file src="src/android/MainActivity.java" target-dir="src/com/oasitigre.kwallet" />
+      <hook type="after_prepare" src="hooks/android/override_activity.js" />
+
       <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
       <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
       <config-file parent="/manifest" target="AndroidManifest.xml">
