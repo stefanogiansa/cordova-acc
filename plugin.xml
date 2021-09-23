@@ -10,23 +10,21 @@
    </js-module>
    <!-- configure android platform -->
    <platform name="android">
-      <!-- plugin source -->
-      <hook type="after_prepare" src="hooks/android/override_activity.js" />
-
+      <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
       <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
-      <source-file src="src/android/KFirebaseMessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
+      <source-file src="src/android/ACC_MessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
       <config-file parent="/manifest" target="AndroidManifest.xml">
          <uses-permission android:name="android.permission.INTERNET" />
          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       </config-file>
       <config-file target="AndroidManifest.xml" parent="/manifest/application">
-         <service android:name="com.konvergence.acc.cordova.plugin.KFirebaseMessagingService" android:stopWithTask="false">
+         <service android:name="com.konvergence.acc.cordova.plugin.ACC_MessagingService" android:stopWithTask="false">
             <intent-filter>
                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
          </service>
       </config-file>
-      <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
+      <hook type="after_plugin_add" src="hooks/android/override_activity.js" />      
    </platform>
    <!-- configure ios platform -->
    <platform name="ios">
@@ -35,17 +33,11 @@
       <header-file src="src/ios/ACC_CordovaAppDelegate.h" />
       <header-file src="src/ios/AppDelegate+ACC_Cordova.h" /> 
       <source-file src="src/ios/AppDelegate+ACC_Cordova.m" />
-      <header-file src="src/ios/CDVPlugin+ACC_Cordova.h" />
-      <source-file src="src/ios/CDVPlugin+ACC_Cordova.m" />
-      <!-- dependencies -->
-      <framework src="libsqlite3.dylib" />
-      <framework src="SystemConfiguration.framework" />
-      <!-- sdk source for ios managed by cocoapods -->
       <podspec>
          <pods use-frameworks="true">
-            <pod name="ACPCampaignClassic" spec="&gt;= 2.0" />
-            <pod name="ACPUserProfile" spec="&gt;= 2.0" />
-            <pod name="ACPCore" spec="&gt;= 2.0" />
+            <pod name="ACPCampaignClassic" spec=">= 2.0" />
+            <pod name="ACPUserProfile" spec=">= 2.0" />
+            <pod name="ACPCore" spec=">= 2.0" />
          </pods>
       </podspec>
    </platform>

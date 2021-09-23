@@ -10,31 +10,29 @@
  governing permissions and limitations under the License.
  */
 
-package com.konvergence.acc.cordova;
-import android.os.Bundle;
-import android.util.Log;
-import com.adobe.marketing.mobile.AdobeCallback;
-import com.adobe.marketing.mobile.Event;
-import com.adobe.marketing.mobile.LoggingMode;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.CampaignClassic;
-import com.adobe.marketing.mobile.Lifecycle;
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaInterface;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+ package com.konvergence.acc.cordova;
+ import android.os.Bundle;
+ import android.util.Log;
+ import com.adobe.marketing.mobile.AdobeCallback;
+ import com.adobe.marketing.mobile.Event;
+ import com.adobe.marketing.mobile.LoggingMode;
+ import com.adobe.marketing.mobile.MobileCore;
+ import com.adobe.marketing.mobile.CampaignClassic;
+ import com.adobe.marketing.mobile.Lifecycle;
+ import org.apache.cordova.CallbackContext;
+ import org.apache.cordova.CordovaInterface;
+ import org.apache.cordova.CordovaPlugin;
+ import org.apache.cordova.CordovaWebView;
+ import org.json.JSONArray;
+ import org.json.JSONException;
+ import org.json.JSONObject;
+ import java.util.HashMap;
+ import java.util.Iterator;
+ import java.util.Map;
 
-public class ACC_Cordova extends CordovaPlugin {
+ public class ACC_Cordova extends CordovaPlugin {
     final static String METHOD_ACC_EXTENSION_VERSION = "extensionVersion";
     final static String METHOD_ACC_REGISTER_DEVICE = "registerDevice";
-    final static String METHOD_ACC_TRACK_NOTIFICATION_RECEIVE = "trackNotificationReceive";
-    final static String METHOD_ACC_TRACK_NOTIFICATION_CLICK = "trackNotificationClick";
 
     // ===============================================================
     // all calls filter through this method
@@ -42,21 +40,15 @@ public class ACC_Cordova extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (METHOD_ACC_EXTENSION_VERSION.equals(action)) {
-             this.extensionVersion(callbackContext);
-             return true;
-        } else if (METHOD_ACC_REGISTER_DEVICE.equals(action)) {
-             this.registerDevice(args, callbackContext);
-             return true;
-        } else if (METHOD_ACC_TRACK_NOTIFICATION_RECEIVE.equals(action)) {
-             this.trackNotificationReceive(args, callbackContext);
-             return true;
-        } else if (METHOD_ACC_TRACK_NOTIFICATION_CLICK.equals(action)) {
-            this.trackNotificationClick(args, callbackContext);
-            return true;
-        }
+           this.extensionVersion(callbackContext);
+           return true;
+       } else if (METHOD_ACC_REGISTER_DEVICE.equals(action)) {
+           this.registerDevice(args, callbackContext);
+           return true;
+       }
 
-        return false;
-    }
+       return false;
+   }
 
     // ===============================================================
     // ACC Methods
@@ -88,58 +80,6 @@ public class ACC_Cordova extends CordovaPlugin {
                     });
                 } catch (final Exception ex) {
                     final String errorMessage = String.format("Exception in call to setAdvertisingIdentifier: %s", ex.getLocalizedMessage());
-                    MobileCore.log(LoggingMode.WARNING, "AEP SDK", errorMessage);
-                    callbackContext.error(errorMessage);
-                }
-            }
-        });
-    }
-
-    private void trackNotificationReceive(final JSONArray args, final CallbackContext callbackContext) {
-        cordova.getThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final String action = args.getString(0);
-                    final HashMap<String, String> contextData = getStringMapFromJSON(args.getJSONObject(1));
-
-                    Map<String,String> trackInfo = new HashMap<>();
-                    trackInfo.put("_mId", contextData.get("_mId"));
-                    trackInfo.put("_dId", contextData.get("_dId"));
-
-                    // Send the tracking information for message received
-                    CampaignClassic.trackNotificationReceive(trackInfo);
-
-                    callbackContext.success();
-                } catch (final Exception ex) {
-                    final String errorMessage = String.format("Exception in call to trackNotificationReceive: %s", ex.getLocalizedMessage());
-                    MobileCore.log(LoggingMode.WARNING, "AEP SDK", errorMessage);
-                    callbackContext.error(errorMessage);
-                }
-            }
-        });
-    }
-
-    private void trackNotificationClick(final JSONArray args, final CallbackContext callbackContext) {
-        cordova.getThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final HashMap<String, String> contextData = getStringMapFromJSON(args.getJSONObject(0));
-
-                    Map<String,String> trackInfo = new HashMap<>();
-                    /*Bundle extras = getIntent().getExtras();
-                    String deliveryId = extras.getString("_dId");
-                    String messageId = extras.getString("_mId");
-                    trackInfo.put("_mId", messageId);
-                    trackInfo.put("_dId", deliveryId);*/
-
-                    // Send the tracking information for message opening
-                    CampaignClassic.trackNotificationClick(trackInfo);
-
-                    callbackContext.success();
-                } catch (final Exception ex) {
-                    final String errorMessage = String.format("Exception in call to trackNotificationReceive: %s", ex.getLocalizedMessage());
                     MobileCore.log(LoggingMode.WARNING, "AEP SDK", errorMessage);
                     callbackContext.error(errorMessage);
                 }
@@ -184,10 +124,10 @@ public class ACC_Cordova extends CordovaPlugin {
 
     private Event getEventFromMap(final HashMap<String, Object> event) throws Exception {
         return new Event.Builder(
-                event.get("name").toString(),
-                event.get("type").toString(),
-                event.get("source").toString()
-        ).setEventData(getObjectMapFromJSON(new JSONObject(event.get("data").toString()))).build();
+            event.get("name").toString(),
+            event.get("type").toString(),
+            event.get("source").toString()
+            ).setEventData(getObjectMapFromJSON(new JSONObject(event.get("data").toString()))).build();
     }
 
     private HashMap<String, Object> getMapFromEvent(final Event event) {
@@ -217,5 +157,18 @@ public class ACC_Cordova extends CordovaPlugin {
     @Override
     public void onResume(boolean multitasking) {
         super.onResume(multitasking);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String deliveryId = extras.getString("_dId");
+            String messageId = extras.getString("_mId");
+            if (deliveryId != null && messageId != null) {
+                Map<String,String> trackInfo = new HashMap<>();
+                trackInfo.put("_mId", messageId);
+                trackInfo.put("_dId", deliveryId);
+
+                // Send the tracking information for message opening
+                CampaignClassic.trackNotificationClick(trackInfo);
+            }
+        }
     }
 }
