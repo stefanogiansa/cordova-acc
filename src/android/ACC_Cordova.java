@@ -11,6 +11,7 @@
  */
 
  package com.konvergence.acc.cordova;
+
  import android.os.Bundle;
  import android.util.Log;
  import com.adobe.marketing.mobile.AdobeCallback;
@@ -157,7 +158,7 @@
     @Override
     public void onResume(boolean multitasking) {
         super.onResume(multitasking);
-        Bundle extras = getIntent().getExtras();
+		Bundle extras = this.cordova.getActivity().getIntent().getExtras();
         if (extras != null) {
             String deliveryId = extras.getString("_dId");
             String messageId = extras.getString("_mId");

@@ -18,7 +18,7 @@
          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       </config-file>
       <config-file target="AndroidManifest.xml" parent="/manifest/application">
-         <service android:name="com.konvergence.acc.cordova.plugin.ACC_MessagingService" android:stopWithTask="false">
+         <service android:name="com.konvergence.acc.cordova.ACC_MessagingService" android:stopWithTask="false">
             <intent-filter>
                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -28,7 +28,12 @@
    </platform>
    <!-- configure ios platform -->
    <platform name="ios">
-      <!-- plugin source -->
+      <config-file target="config.xml" parent="/*">
+         <feature name="ACC_Cordova">
+            <param name="ios-package" value="ACC_Cordova"/>
+            <param name="onload" value="true"/>
+         </feature>
+      </config-file>
       <source-file src="src/ios/ACC_Cordova.m" />
       <header-file src="src/ios/ACC_CordovaAppDelegate.h" />
       <header-file src="src/ios/AppDelegate+ACC_Cordova.h" /> 

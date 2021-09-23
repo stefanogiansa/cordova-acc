@@ -18,14 +18,31 @@
 #import "ACPSignal.h"
 #import <Cordova/CDV.h>
 #import <Foundation/Foundation.h>
-#import "ACC_CordovaAppDelegate.h"
 
-@interface ACPCore_Cordova : CDVPlugin <ACC_CordovaAppDelegate>
+@interface ACPCore_Cordova : CDVPlugin
 - (void) extensionVersion:(CDVInvokedUrlCommand*)command;
 - (void) registerDevice:(CDVInvokedUrlCommand*)command;
 @end
 
 @implementation ACPCore_Cordova
+
+- (void)pluginInitialize
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+}
+
+- (void)finishLaunching:(NSNotification *)notification {
+    [ACPCore setLogLevel:ACPMobileLogLevelDebug];
+    [ACPCore configureWithAppId:@"36817ad82b35/ff9a58fd45ca/launch-b54585ec721d"];
+    [ACPCampaignClassic registerExtension];
+    [ACPUserProfile registerExtension];
+    [ACPIdentity registerExtension];
+    [ACPLifecycle registerExtension];
+    [ACPSignal registerExtension];
+    [ACPCore start:^{
+        [ACPCore lifecycleStart:nil];
+    }];
+}
 
 - (void) extensionVersion:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
@@ -52,21 +69,4 @@
 - (id) getCommandArg:(id) argument {
     return argument == (id)[NSNull null] ? nil : argument;
 }
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [ACPCore setLogLevel:ACPMobileLogLevelDebug];
-    [ACPCore configureWithAppId:@"36817ad82b35/ff9a58fd45ca/launch-b54585ec721d"];
-    [ACPCampaignClassic registerExtension];
-    [ACPUserProfile registerExtension];
-    [ACPIdentity registerExtension];
-    [ACPLifecycle registerExtension];
-    [ACPSignal registerExtension];
-    [ACPCore start:^{
-        [ACPCore lifecycleStart:nil];
-        
-    }];
-    
-    return YES;
-}
-
 @end

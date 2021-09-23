@@ -1,4 +1,4 @@
-package com.konvergence.acc.cordova.plugin;
+package com.konvergence.acc.cordova;
 
 import android.util.Log;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class ACC_MessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d("ACC_MessagingService", "Receive message from: " + remoteMessage.getFrom());
-        Map<String,String> payloadData = message.getData();
+        Map<String,String> payloadData = remoteMessage.getData();
 
         // Check if message contains data payload.
         if (payloadData.size() > 0) {
