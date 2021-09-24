@@ -1,6 +1,6 @@
 {
   "name": "@konvergence/cordova-k-acc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Plugin integrazione ACC",
   "cordova": {
     "id": "cordova-k-acc",

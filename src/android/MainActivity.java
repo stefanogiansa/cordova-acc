@@ -39,7 +39,8 @@ public class MainActivity extends CordovaActivity
             MobileCore.start(new AdobeCallback () {
                 @Override
                 public void call(Object o) {
-                    MobileCore.configureWithAppID("36817ad82b35/ff9a58fd45ca/launch-b54585ec721d");
+					String accAppId = getResources().getString(R.string.acc_app_id);
+					MobileCore.configureWithAppID(accAppId);
                 }
             });
         } catch (Exception e) {

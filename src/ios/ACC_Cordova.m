@@ -10,14 +10,16 @@
  governing permissions and limitations under the License.
  */
 
+#import "ACC_Cordova.h"
+#import <Cordova/CDV.h>
+#import <Foundation/Foundation.h>
+
 #import "ACPCore.h"
 #import "ACPCampaignClassic.h"
 #import "ACPLifecycle.h"
 #import "ACPUserProfile.h"
 #import "ACPIdentity.h"
 #import "ACPSignal.h"
-#import <Cordova/CDV.h>
-#import <Foundation/Foundation.h>
 
 @interface ACC_Cordova ()
 @end
