@@ -19,10 +19,10 @@
 #import <Cordova/CDV.h>
 #import <Foundation/Foundation.h>
 
-@interface ACPCore_Cordova ()
+@interface ACC_Cordova ()
 @end
 
-@implementation ACPCore_Cordova
+@implementation ACC_Cordova
 
 - (void) pluginInitialize {
     [[NSNotificationCenter defaultCenter] addObserver:self
