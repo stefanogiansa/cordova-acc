@@ -19,21 +19,22 @@
 #import <Cordova/CDV.h>
 #import <Foundation/Foundation.h>
 
-@interface ACPCore_Cordova : CDVPlugin
-- (void) extensionVersion:(CDVInvokedUrlCommand*)command;
-- (void) registerDevice:(CDVInvokedUrlCommand*)command;
+@interface ACPCore_Cordova ()
 @end
 
 @implementation ACPCore_Cordova
 
-- (void)pluginInitialize
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
+- (void) pluginInitialize {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidFinishLaunching:)
+                                                 name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
 
-- (void)finishLaunching:(NSNotification *)notification {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    NSString *appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"accAppId"];
+
     [ACPCore setLogLevel:ACPMobileLogLevelDebug];
-    [ACPCore configureWithAppId:@"36817ad82b35/ff9a58fd45ca/launch-b54585ec721d"];
+    [ACPCore configureWithAppId:appId];
     [ACPCampaignClassic registerExtension];
     [ACPUserProfile registerExtension];
     [ACPIdentity registerExtension];
@@ -44,6 +45,7 @@
     }];
 }
 
+#pragma mark - Cordova commands
 - (void) extensionVersion:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
         NSString *version = [ACPCampaignClassic extensionVersion];

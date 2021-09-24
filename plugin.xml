@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-k-acc" version="0.0.1">
+<plugin  xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+         xmlns:android="http://schemas.android.com/apk/res/android" 
+         id="cordova-k-acc" 
+         version="0.0.1">
+
    <name>cordova-k-acc</name>
    <description>ACC Plugin for Cordova</description>
+   <repo>https://github.com/stefanogiansa/cordova-acc</repo>
    <license>Apache 2.0</license>
    <keywords>cordova,core,acc,marketing</keywords>
-   <!-- use "ACPCore" to access the ACPCore APIs in javascript -->
-   <js-module name="cordova-acpcore" src="www/ACC_Cordova.js">
-      <clobbers target="ACC" />
+
+   <preference name="APP_ID" />
+   
+   <js-module name="cordova-k-acc" src="www/ACC_Cordova.js">
+      <clobbers target="ACC_Cordova" />
    </js-module>
    <!-- configure android platform -->
    <platform name="android">
-      <hook type="after_prepare" src="hooks/android/override_activity.js" />
-      <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
-      <source-file src="src/android/ACC_MessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
+      <config-file target="res/xml/config.xml" parent="/*">
+         <feature name="FacebookConnectPlugin">
+            <param name="android-package" value="com.konvergence.acc.cordova.ACC_Cordova" />
+               <param name="onload" value="true" />
+         </feature>
+      </config-file>
+      <source-file src="src/android/cordovakacc.xml" target-dir="res/values" />
+      <config-file target="res/values/cordovakacc.xml" parent="/*">
+         <string name="acc_app_id">$APP_ID</string>
+      </config-file>
+      <config-file target="app/src/main/res/values/cordovakacc.xml" parent="/*">
+         <string name="acc_app_id">$APP_ID</string>
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="application">
+         <meta-data android:name="com.konvergence.acc.cordova.ACC_Cordova.accAppId" android:value="@string/acc_app_id"/>
+      </config-file>
       <config-file parent="/manifest" target="AndroidManifest.xml">
          <uses-permission android:name="android.permission.INTERNET" />
          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -24,17 +44,25 @@
             </intent-filter>
          </service>
       </config-file>
+      <source-file src="src/android/ACC_Cordova.java" target-dir="src/com/konvergence.acc.cordova" />
+      <source-file src="src/android/ACC_MessagingService.java" target-dir="src/com/konvergence.acc.cordova" />
       <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
+      <hook type="after_prepare" src="hooks/android/override_activity.js" />
    </platform>
    <!-- configure ios platform -->
    <platform name="ios">
       <config-file target="config.xml" parent="/*">
          <feature name="ACC_Cordova">
             <param name="ios-package" value="ACC_Cordova"/>
-            <param name="onload" value="true"/>
+            <param name="onload" value="true" />
          </feature>
+         <plugin name="ACC_Cordova" value="ACC_Cordova"/>
       </config-file>
+      <header-file src="src/ios/ACC_Cordova.h" />
       <source-file src="src/ios/ACC_Cordova.m" />
+      <config-file target="*-Info.plist" parent="accAppId">
+         <string>$APP_ID</string>
+      </config-file>
       <podspec>
          <pods use-frameworks="true">
             <pod name="ACPCampaignClassic" spec=">= 2.0" />
