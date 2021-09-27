@@ -12,7 +12,7 @@
 
    <preference name="APP_ID" />
    
-   <js-module name="cordova-k-acc" src="www/ACC_Cordova.js">
+   <js-module name="ACC_Cordova" src="www/ACC_Cordova.js">
       <clobbers target="ACC_Cordova" />
    </js-module>
    <!-- configure android platform -->
