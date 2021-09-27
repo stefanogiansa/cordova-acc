@@ -1,5 +1,5 @@
 {
-  "name": "@konvergence/cordova-k-acc",
+  "name": "cordova-k-acc",
   "version": "0.0.2",
   "description": "Plugin integrazione ACC",
   "cordova": {
@@ -13,6 +13,8 @@
     "type": "git",
     "url": "https://github.com/stefanogiansa/cordova-acc"
   },
+  "author": "stefanogiansa",
+  "license":"Apache 2.0",
   "keywords": [
     "cordova",
     "core",
@@ -21,6 +23,5 @@
     "ecosystem:cordova",
     "cordova-ios",
     "cordova-android"
-  ],
-  "author": "stefanogiansa"
+  ]
 }

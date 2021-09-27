@@ -4,7 +4,7 @@
          id="cordova-k-acc" 
          version="0.0.2">
 
-   <name>cordova-k-acc</name>
+   <name>ACC_Cordova</name>
    <description>ACC Plugin for Cordova</description>
    <repo>https://github.com/stefanogiansa/cordova-acc</repo>
    <license>Apache 2.0</license>
@@ -15,6 +15,32 @@
    <js-module name="ACC_Cordova" src="www/ACC_Cordova.js">
       <clobbers target="ACC_Cordova" />
    </js-module>
+   <!-- configure ios platform -->
+   <platform name="ios">
+      <config-file target="config.xml" parent="/*">
+         <feature name="ACC_Cordova">
+            <param name="ios-package" value="ACC_Cordova"/>
+            <param name="onload" value="true" />
+         </feature>
+         <plugin name="ACC_Cordova" value="ACC_Cordova"/>
+      </config-file>
+
+      <header-file src="src/ios/ACC_Cordova.h" />
+      <source-file src="src/ios/ACC_Cordova.m" />
+      
+      <config-file target="*-Info.plist" parent="accAppId">
+         <string>$APP_ID</string>
+      </config-file>
+      
+      <podspec>
+         <pods use-frameworks="true">
+            <pod name="ACPCampaignClassic" spec=">= 2.0" />
+            <pod name="ACPUserProfile" spec=">= 2.0" />
+            <pod name="ACPCore" spec=">= 2.0" />
+         </pods>
+      </podspec>
+   </platform>
+
    <!-- configure android platform -->
    <platform name="android">
       <config-file target="res/xml/config.xml" parent="/*">
@@ -49,26 +75,6 @@
       <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
       <hook type="after_prepare" src="hooks/android/override_activity.js" />
    </platform>
-   <!-- configure ios platform -->
-   <platform name="ios">
-      <config-file target="config.xml" parent="/*">
-         <feature name="ACC_Cordova">
-            <param name="ios-package" value="ACC_Cordova"/>
-            <param name="onload" value="true" />
-         </feature>
-         <plugin name="ACC_Cordova" value="ACC_Cordova"/>
-      </config-file>
-      <header-file src="src/ios/ACC_Cordova.h" />
-      <source-file src="src/ios/ACC_Cordova.m" />
-      <config-file target="*-Info.plist" parent="accAppId">
-         <string>$APP_ID</string>
-      </config-file>
-      <podspec>
-         <pods use-frameworks="true">
-            <pod name="ACPCampaignClassic" spec=">= 2.0" />
-            <pod name="ACPUserProfile" spec=">= 2.0" />
-            <pod name="ACPCore" spec=">= 2.0" />
-         </pods>
-      </podspec>
-   </platform>
+   
+   
 </plugin>
