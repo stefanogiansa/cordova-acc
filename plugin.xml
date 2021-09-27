@@ -17,21 +17,8 @@
    </js-module>
    <!-- configure ios platform -->
    <platform name="ios">
-      <config-file target="config.xml" parent="/*">
-         <feature name="ACC_Cordova">
-            <param name="ios-package" value="ACC_Cordova"/>
-            <param name="onload" value="true" />
-         </feature>
-         <plugin name="ACC_Cordova" value="ACC_Cordova"/>
-      </config-file>
-
       <header-file src="src/ios/ACC_Cordova.h" />
       <source-file src="src/ios/ACC_Cordova.m" />
-      
-      <config-file target="*-Info.plist" parent="accAppId">
-         <string>$APP_ID</string>
-      </config-file>
-      
       <podspec>
          <pods use-frameworks="true">
             <pod name="ACPCampaignClassic" spec=">= 2.0" />
@@ -75,6 +62,4 @@
       <framework custom="true" src="src/android/ACC_Cordova.gradle" type="gradleReference" />
       <hook type="after_prepare" src="hooks/android/override_activity.js" />
    </platform>
-   
-   
 </plugin>
