@@ -10,15 +10,11 @@
    <license>Apache 2.0</license>
    <keywords>cordova,core,acc,marketing</keywords>
 
-   <preference name="APP_ID" />
-   
    <js-module name="ACC_Cordova" src="www/ACC_Cordova.js">
       <clobbers target="ACC_Cordova" />
    </js-module>
    <!-- configure ios platform -->
    <platform name="ios">
-      <header-file src="src/ios/ACC_Cordova.h" />
-      <source-file src="src/ios/ACC_Cordova.m" />
       <podspec>
          <pods use-frameworks="true">
             <pod name="ACPCampaignClassic" spec=">= 2.0" />
