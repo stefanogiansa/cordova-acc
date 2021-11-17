@@ -60,7 +60,7 @@ var ACC_Cordova = (function() {
     };
 
     ACC_Cordova.registerDevice = function(action, contextData, success, fail) {
-        var FUNCTION_NAME = "trackAction";
+        var FUNCTION_NAME = "registerDevice";
 
         if (!acpIsString(action)) {
             acpPrintNotAString("action", FUNCTION_NAME);
