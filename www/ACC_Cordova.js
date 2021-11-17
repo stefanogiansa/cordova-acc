@@ -59,16 +59,11 @@ var ACC_Cordova = (function() {
         return exec(success, fail, PLUGIN_NAME, FUNCTION_NAME, []);
     };
 
-    ACC_Cordova.registerDevice = function(action, contextData, success, fail) {
+    ACC_Cordova.registerDevice = function(token, success, fail) {
         var FUNCTION_NAME = "registerDevice";
 
-        if (!acpIsString(action)) {
-            acpPrintNotAString("action", FUNCTION_NAME);
-            return;
-        }
-
-        if (contextData && !acpIsObject(contextData)) {
-            acpPrintNotAnObject("contextData", FUNCTION_NAME);
+        if (!acpIsString(token)) {
+            acpPrintNotAString("token", FUNCTION_NAME);
             return;
         }
 
@@ -82,7 +77,7 @@ var ACC_Cordova = (function() {
             return;
         }
 
-        return exec(success, fail, PLUGIN_NAME, FUNCTION_NAME, [action, contextData]);
+        return exec(success, fail, PLUGIN_NAME, FUNCTION_NAME, [token]);
     };
 
 return ACC_Cordova;
