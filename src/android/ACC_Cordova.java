@@ -70,7 +70,11 @@
             public void run() {
                 try {
                     final String token = args.getString(0);
-                    final String userKey = args.getString(0);
+                    String userKey = null;
+
+                    if (args.length() > 1) {
+						userKey = args.getString(1);
+					}
 
                     CampaignClassic.registerDevice(token, userKey, null,new AdobeCallback<Boolean>() {
                         @Override

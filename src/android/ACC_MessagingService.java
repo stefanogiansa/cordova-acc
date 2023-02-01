@@ -1,29 +1,31 @@
 package com.konvergence.acc.cordova;
 
+import android.os.Bundle;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import java.util.Map;
 import java.util.HashMap;
 
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
 import com.adobe.marketing.mobile.CampaignClassic;
 
-public class ACC_MessagingService extends FirebaseMessagingService {
+import org.apache.cordova.firebase.FirebasePluginMessageReceiver;
+import org.apache.cordova.firebase.FirebasePluginMessageReceiverManager;
+
+public class ACC_MessagingService extends FirebasePluginMessageReceiver {
 
     private static final String TAG = "ACC_MessagingService";
 
-    @Override
-    public void onNewToken(String token) {
-        super.onNewToken(token);
-        Log.d(TAG, "New token: " + token);
-    }
+	public ACC_MessagingService() {
+		FirebasePluginMessageReceiverManager.register(this);
+	}
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public boolean onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         Log.d("ACC_MessagingService", "Receive message from: " + remoteMessage.getFrom());
         Map<String,String> payloadData = remoteMessage.getData();
-
         // Check if message contains data payload.
         if (payloadData.size() > 0) {
             Map<String,String> trackInfo = new HashMap<>();
@@ -33,5 +35,11 @@ public class ACC_MessagingService extends FirebaseMessagingService {
             // Send the tracking information for message received
             CampaignClassic.trackNotificationReceive(trackInfo);
         }
-    }
+		return false;
+	}
+
+	@Override
+	public boolean sendMessage(Bundle bundle) {
+		return false;
+	}
 }
